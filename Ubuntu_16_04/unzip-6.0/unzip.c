@@ -684,7 +684,8 @@ modifiers:\n\
   -C  match filenames case-insensitively     -L  make (some) names \
 lowercase\n %-42s  -V  retain VMS version numbers\n%s\
   -O CHARSET  specify a character encoding for DOS, Windows and OS/2 archives\n\
-  -I CHARSET  specify a character encoding for UNIX and other archives\n\n";
+  -I CHARSET  specify a character encoding for UNIX and other archives\n\
+  -g do not apply symbolic links during extraction\n\n";
 #else /* !VMS */
 static ZCONST char Far UnzipUsageLine4[] = "\
 modifiers:\n\
