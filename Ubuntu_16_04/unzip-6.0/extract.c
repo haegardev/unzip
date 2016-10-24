@@ -635,7 +635,7 @@ int extract_or_test_files(__G)    /* return PK-type error code */
   ---------------------------------------------------------------------------*/
 
 #ifdef SYMLINKS
-    if (G.slink_last != NULL) {
+    if ((!uO.g_flag) && (G.slink_last != NULL)) {
         if (QCOND2)
             Info(slide, 0, ((char *)slide, LoadFarString(SymLnkDeferred)));
         while (G.slink_head != NULL) {
