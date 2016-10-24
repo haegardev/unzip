@@ -459,6 +459,7 @@ typedef struct _UzpCB {
 
 /* the collection of general UnZip option flags and option arguments */
 typedef struct _UzpOpts {
+    int g_flag;         /* -g ignore symlinks */
 #ifndef FUNZIP
     char *exdir;        /* pointer to extraction root directory (-d option) */
     char *pwdarg;       /* pointer to command-line password (-P option) */
