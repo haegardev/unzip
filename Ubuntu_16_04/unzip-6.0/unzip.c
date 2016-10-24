@@ -1537,6 +1537,11 @@ int uz_opts(__G__ pargc, pargv)
                         }
                     }
                     break;
+#ifdef SYMLINKS
+                case ('g'): /* -g ignore symlinks */
+                    uO.g_flag = TRUE;
+                    break;
+#endif
 #ifdef MACOS
                 case ('i'): /* -i [MacOS] ignore filenames stored in Mac ef */
                     if( negative ) {
