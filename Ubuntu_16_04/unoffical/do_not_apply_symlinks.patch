@@ -1,0 +1,45 @@
+--- a/extract.c
++++ b/extract.c
+@@ -635,7 +635,7 @@ int extract_or_test_files(__G)    /* return PK-type error code */
+   ---------------------------------------------------------------------------*/
+ 
+ #ifdef SYMLINKS
+-    if (G.slink_last != NULL) {
++    if ((!uO.g_flag) && (G.slink_last != NULL)) {
+         if (QCOND2)
+             Info(slide, 0, ((char *)slide, LoadFarString(SymLnkDeferred)));
+         while (G.slink_head != NULL) {
+--- a/unzip.c
++++ b/unzip.c
+@@ -684,7 +684,8 @@ modifiers:\n\
+   -C  match filenames case-insensitively     -L  make (some) names \
+ lowercase\n %-42s  -V  retain VMS version numbers\n%s\
+   -O CHARSET  specify a character encoding for DOS, Windows and OS/2 archives\n\
+-  -I CHARSET  specify a character encoding for UNIX and other archives\n\n";
++  -I CHARSET  specify a character encoding for UNIX and other archives\n\
++  -g do not apply symbolic links during extraction\n\n";
+ #else /* !VMS */
+ static ZCONST char Far UnzipUsageLine4[] = "\
+ modifiers:\n\
+@@ -1537,6 +1538,11 @@ int uz_opts(__G__ pargc, pargv)
+                         }
+                     }
+                     break;
++#ifdef SYMLINKS
++                case ('g'): /* -g ignore symlinks */
++                    uO.g_flag = TRUE;
++                    break;
++#endif
+ #ifdef MACOS
+                 case ('i'): /* -i [MacOS] ignore filenames stored in Mac ef */
+                     if( negative ) {
+--- a/unzip.h
++++ b/unzip.h
+@@ -459,6 +459,7 @@ typedef struct _UzpCB {
+ 
+ /* the collection of general UnZip option flags and option arguments */
+ typedef struct _UzpOpts {
++    int g_flag;         /* -g ignore symlinks */
+ #ifndef FUNZIP
+     char *exdir;        /* pointer to extraction root directory (-d option) */
+     char *pwdarg;       /* pointer to command-line password (-P option) */
